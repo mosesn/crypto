@@ -11,8 +11,7 @@ fn main() {
 
     match args.as_slice() {
         [_, ref arg] =>  {
-            let value = String::from_str(arg.as_slice());
-            let res = hex_to_base64(value);
+            let res = hex_to_base64(arg);
             match res {
                 Ok(stri)   => println!("{}", stri),
                 Err(_) => std::os::set_exit_status(2)
@@ -22,13 +21,14 @@ fn main() {
     }
 }
 
-fn hex_to_base64(hex: String) -> Result<String, FromHexError> {
+fn hex_to_base64(hex: &String) -> Result<String, FromHexError> {
     let conf = Config {
         char_set: Standard,
         pad: false,
         line_length: None
     };
-    hex.as_slice().from_hex().map( |bytes|
+    let ref value = hex;
+    value.as_slice().from_hex().map( |bytes|
       bytes.as_slice().to_base64(conf)
     )
 }
