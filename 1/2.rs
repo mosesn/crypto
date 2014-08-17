@@ -25,9 +25,9 @@ fn hex_xor(first: &String, second: &String) -> Result<String, FromHexError> {
 
     let aiter: Items<u8> = a.iter();
     let iter: Zip<Items<u8>, Items<u8>> = aiter.zip(b.iter());
-    let xored: Map<(&u8, &u8), u8, Zip<Items<u8>, Items<u8>>> = iter.map( |(left, right)|
+    let xored: Map<(&u8, &u8), u8, Zip<Items<u8>, Items<u8>>> = iter.map( |(left, right)| {
         *left ^ *right
-    );
+    });
     let vec: Vec<u8> = FromIterator::from_iter(xored);
 
     Ok(vec.as_slice().to_hex())

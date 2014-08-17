@@ -28,7 +28,7 @@ fn hex_to_base64(hex: &String) -> Result<String, FromHexError> {
         line_length: None
     };
     let ref value = hex;
-    value.as_slice().from_hex().map( |bytes|
-      bytes.as_slice().to_base64(conf)
-    )
+    value.as_slice().from_hex().map( |bytes| {
+        bytes.as_slice().to_base64(conf)
+    })
 }
